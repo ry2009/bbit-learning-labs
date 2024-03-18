@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Copyright 2024 Bloomberg Finance L.P.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,28 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import sys
 
-class mqProducerInterface:
-    def __init__(self, routing_key: str, exchange_name: str) -> None:
-        # Save parameters to class variables
+from solution.consumer_sol import mqConsumer  # pylint: disable=import-error
 
-        # Call setupRMQConnection
-        pass
 
-    def setupRMQConnection(self) -> None:
-        # Set-up Connection to RabbitMQ service
+def main() -> None:
+    consumer = mqConsumer(binding_key="Tech Lab Key",exchange_name="Tech Lab Exchange",queue_name="Tech Lab Queue")
+    consumer.startConsuming()
 
-        # Establish Channel
 
-        # Create the exchange if not already present
-
-        pass
-
-    def publishOrder(self, message: str) -> None:
-        # Basic Publish to Exchange
-
-        # Close Channel
-
-        # Close Connection
-    
-        pass
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("Interrupted")
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)
